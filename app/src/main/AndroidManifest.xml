@@ -9,10 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.CreatUserActivity"></activity>
-        <activity android:name="com.LoginActivity" />
+        <activity android:name="controler.CreatUserActivity"></activity>
+        <activity android:name="controler.LoginActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name="controler.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

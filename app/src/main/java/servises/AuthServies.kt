@@ -1,0 +1,4 @@
+package servises
+
+object AuthServies {
+}

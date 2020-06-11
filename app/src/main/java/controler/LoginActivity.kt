@@ -1,4 +1,4 @@
-package com
+package controler
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -16,7 +16,7 @@ class LoginActivity : AppCompatActivity() {
 
     }
     fun loginUserBtnClicked(view: View){
-        val createUserIntent = Intent(this,CreatUserActivity::class.java)
+        val createUserIntent = Intent(this, CreatUserActivity::class.java)
         startActivity(createUserIntent)
 
     }
