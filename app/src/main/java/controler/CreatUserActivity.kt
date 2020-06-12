@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.ImageView
 import com.mujtaba.smackthat.R
 import kotlinx.android.synthetic.main.activity_creat_user.*
+import servises.AuthServies
 import kotlin.random.Random
 
 class CreatUserActivity : AppCompatActivity() {
@@ -56,6 +57,24 @@ class CreatUserActivity : AppCompatActivity() {
 
     }
     fun createUserClicked(view: View){
+        val email = creatEmailText.text.toString()
+        val password = creatPasswordText.text.toString()
+
+        AuthServies.registerUser(this,email,password){ registerSuccess ->
+            if (registerSuccess) {
+                AuthServies.loginUser(this, email,password){ loginSuccess->
+                    if (loginSuccess){
+                        println(AuthServies.authToken)
+                        println(AuthServies.userEmail)
+
+                    }
+
+                }
+
+            }
+
+
+        }
 
     }
 }
