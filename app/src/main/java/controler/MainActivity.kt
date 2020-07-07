@@ -1,6 +1,10 @@
 package controler
 
+import Utilites.BROADCAST_USER_DATA_CHANGE
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.View
 import com.google.android.material.navigation.NavigationView
@@ -12,7 +16,11 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.mujtaba.smackthat.R
+import kotlinx.android.synthetic.main.nav_header_main.*
+import servises.AuthServies
+import servises.userDataService
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,6 +31,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(userDataChangeReciver,
+                IntentFilter(BROADCAST_USER_DATA_CHANGE))
 
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
@@ -37,6 +48,18 @@ class MainActivity : AppCompatActivity() {
         ), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+    private val userDataChangeReciver = object: BroadcastReceiver(){
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (AuthServies.isLoggedIn){
+                userNameNavHeader.text=userDataService.name
+                userEmailNaveHeader.text=userDataService.email
+                val resurceId = resources.getIdentifier(userDataService.avatarName,"drawable",packageName)
+                userImageNavHeader.setImageResource(resurceId)
+                loginBtnNavHeader.text="Logout"
+            }
+        }
+
     }
 
 
