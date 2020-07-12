@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.mujtaba.smackthat.R
 import kotlinx.android.synthetic.main.activity_creat_user.*
+import kotlinx.android.synthetic.main.nav_header_main.*
 import servises.AuthServies
 import servises.userDataService
 import kotlin.random.Random
@@ -22,10 +23,12 @@ class CreatUserActivity : AppCompatActivity() {
     var avatarColor = "[0.5,0.5,0.5,1]"  // RGB RED, GREAN, BLUE
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_creat_user)
         creatSpner.visibility=View.INVISIBLE
+
     }
     fun gneratUserAvatar(view: View){
         val random = java.util.Random()
@@ -78,6 +81,7 @@ class CreatUserActivity : AppCompatActivity() {
                                     val userDataChange = Intent(BROADCAST_USER_DATA_CHANGE)
                                     LocalBroadcastManager.getInstance(this).sendBroadcast(userDataChange)
                                     enableSpeaner(false)
+                                    println(userDataChange)
                                     finish()
 
                                 }else{

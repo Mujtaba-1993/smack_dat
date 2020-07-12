@@ -7,6 +7,8 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
+import android.widget.TextView
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -26,38 +28,52 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        LocalBroadcastManager.getInstance(this).registerReceiver(userDataChangeReciver,
-                IntentFilter(BROADCAST_USER_DATA_CHANGE))
 
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
+
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(setOf(
             R.id.nav_home,
             R.id.nav_gallery,
             R.id.nav_slideshow
+
         ), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(userDataChangeReciver,
+                IntentFilter(BROADCAST_USER_DATA_CHANGE))
     }
+
     private val userDataChangeReciver = object: BroadcastReceiver(){
         override fun onReceive(context: Context?, intent: Intent?) {
+
+
             if (AuthServies.isLoggedIn){
                 userNameNavHeader.text=userDataService.name
                 userEmailNaveHeader.text=userDataService.email
                 val resurceId = resources.getIdentifier(userDataService.avatarName,"drawable",packageName)
                 userImageNavHeader.setImageResource(resurceId)
                 loginBtnNavHeader.text="Logout"
+                println("broadcast has received")
+
+
+
+
             }
+
         }
 
     }
